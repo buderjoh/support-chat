@@ -1,3 +1,5 @@
+
+
 <ion-content padding>
   <div style="text-align: center">
   <h2>Support Chat</h2>
@@ -7,22 +9,22 @@
 
       <ion-item>
         <ion-label style="text-align: center" floating>Ihr Name?</ion-label>
-        <ion-input style="text-align: center" type="text" value=""></ion-input>
+        <ion-input style="text-align: center" type="text" [(ngModel)]="person.name"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label style="text-align: center" floating>Ihr Problem</ion-label>
-        <ion-input style="text-align: center" type="text"></ion-input>
+        <ion-input style="text-align: center" type="text" [(ngModel)]="person.problem"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label style="text-align: center" floating>Ihre Email</ion-label>
-        <ion-input style="text-align: center" type="text" value=""></ion-input>
+        <ion-input style="text-align: center" type="text" [(ngModel)]="person.email"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label style="text-align: center" floating>Ihre Kundennummer</ion-label>
-        <ion-input style="text-align: center" type="text"></ion-input>
+        <ion-input style="text-align: center" type="text" [(ngModel)]="person.customerId"></ion-input>
       </ion-item>
 
     </ion-list>
