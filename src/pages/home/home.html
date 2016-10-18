@@ -6,27 +6,27 @@
     <br />
     <br />
     <ion-list>
-
+      <form [formGroup]="person">
       <ion-item>
         <ion-label style="text-align: center" floating>Ihr Name?</ion-label>
-        <ion-input style="text-align: center" type="text" [(ngModel)]="person.name"></ion-input>
+        <ion-input formControlName="name" style="text-align: center" type="text"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label style="text-align: center" floating>Ihr Problem</ion-label>
-        <ion-input style="text-align: center" type="text" [(ngModel)]="person.problem"></ion-input>
+        <ion-input formControlName="problem" style="text-align: center" type="text" ></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label style="text-align: center" floating>Ihre Email</ion-label>
-        <ion-input style="text-align: center" type="text" [(ngModel)]="person.email"></ion-input>
+        <ion-input formControlName="email" style="text-align: center" type="text"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label style="text-align: center" floating>Ihre Kundennummer</ion-label>
-        <ion-input style="text-align: center" type="text" [(ngModel)]="person.customerId"></ion-input>
+        <ion-input formControlName="customerId" style="text-align: center" type="text"></ion-input>
       </ion-item>
-
+</form>
     </ion-list>
     </div>
 

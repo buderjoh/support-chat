@@ -5,8 +5,8 @@ import { ChatPage } from '../chat/chat'
 import { WebSocketService } from '../../service/websocket-service'
 import io from 'socket.io-client';
 
-import { FormBuilder, Validators } from '@angular/forms';
-
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import {} from '@angular/forms'
 
 @Component({
   templateUrl: 'home.html',
@@ -15,26 +15,29 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class HomePage {
 
   socket = null;
-  loginForm: ControlGroup;
+  person: FormGroup;
 
-  constructor(public navCtrl: NavController, public webSocketService: WebSocketService, private formBuilder: FormBuilder, private nav: NavController,
-              builder: FormBuilder) {
-    this.loginForm = new ControlGroup({
-      email: new Control("email", Validators.required),
-      password: new Control("password", Validators.required)
+  constructor(public navCtrl: NavController, public webSocketService: WebSocketService, private formBuilder: FormBuilder, private nav: NavController) {
+    this.person = formBuilder.group({
+      name: ['', Validators.required],
+      problem: ['', Validators.required],
+      email: ['', Validators.required],
+      customerId: ['', Validators.required],
     });
-
-  logForm(){
-    console.log(this.loginForm)
   }
 
  public login() {
 
+   console.log(this.person.value);
+
+
    this.socket = io('http://localhost:8080');
-   this.socket.on('news', function(data){
-     this.data = data;
-     console.log(this.data);
-   }.bind(this));
+
+   this.socket.emit('login', this.person.value);
+   // this.socket.on('login', function(data){
+   //   this.data = data;
+   //   console.log(this.data);
+   // }.bind(this));
 
    this.navCtrl.push(ChatPage);
 }
