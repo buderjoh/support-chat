@@ -1,16 +1,17 @@
 <ion-content padding>
 
+    <span>
+
+{{}}
+
+    </span>
+
+  <form [formGroup]="messageForm">
   <ion-item>
-    <!--<ion-pane>-->
-
-      <!--Messages-->
-
-    <!--</ion-pane>-->
+    <ion-textarea formControlName="message"></ion-textarea>
   </ion-item>
-
-
-  <ion-item>
-    <ion-textarea></ion-textarea>
-  </ion-item>
-
+    </form>
+  <div padding>
+    <button ion-button color="primary" block (click)="sendMessage()">Zum Chat</button>
+  </div>
 </ion-content>

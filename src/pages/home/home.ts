@@ -3,10 +3,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ChatPage } from '../chat/chat'
 import { WebSocketService } from '../../service/websocket-service'
-import io from 'socket.io-client';
 
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import {} from '@angular/forms'
 
 @Component({
   templateUrl: 'home.html',
@@ -27,17 +25,7 @@ export class HomePage {
   }
 
  public login() {
-
-   console.log(this.person.value);
-
-
-   this.socket = io('http://localhost:8080');
-
-   this.socket.emit('login', this.person.value);
-   // this.socket.on('login', function(data){
-   //   this.data = data;
-   //   console.log(this.data);
-   // }.bind(this));
+   this.webSocketService.login(this.person);
 
    this.navCtrl.push(ChatPage);
 }

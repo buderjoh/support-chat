@@ -1,34 +1,35 @@
-import Rx from 'rxjs/Rx';
 import {Injectable} from '@angular/core/'
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import io from 'socket.io-client';
+import {Observable} from 'rxjs/Rx';
+import 'rxjs/add/observable/of';
+
+
 
 Injectable()
 export class WebSocketService {
-  private socket: Rx.Subject<MessageEvent>;
 
-  public connect(url): Rx.Subject<MessageEvent> {
-    if (!this.socket) {
-      this.socket = this.create(url);
-    }
-    return this.socket;
+  private socket = null;
+
+  constructor() {
   }
 
-  private create(url): Rx.Subject<MessageEvent> {
-    let ws = new WebSocket(url);
-    let observable = Rx.Observable.create(
-      (obs: Rx.Observer<MessageEvent>) => {
-        ws.onmessage = obs.next.bind(obs);
-        ws.onerror = obs.error.bind(obs);
-        ws.onclose = obs.complete.bind(obs);
-        return ws.close.bind(ws);
-      }
-    );
-    let observer = {
-      next: (data: Object) => {
-        if (ws.readyState === WebSocket.OPEN) {
-          ws.send(JSON.stringify(data));
-        }
-      },
-    };
-    return Rx.Subject.create(observer, observable);
+
+  public login(person: any) {
+    console.log(person.value);
+    this.socket = io('http://localhost:8080');
+    this.socket.emit('login', person.value);
   }
+
+  public sendMessage(message: String) {
+    this.socket = io('http://localhost:8080');
+    this.socket.emit('sendMessage', message);
+  }
+
+  public receiveMessage(): Observable<any> {
+    this.socket = io('http://localhost:8080');
+    return Observable.of(this.socket.on('pushMessage'));
+  }
+
+
 }
