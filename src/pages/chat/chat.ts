@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { WebSocketService } from '../../service/websocket-service'
-import { NavController } from 'ionic-angular';
+import {NavController, List} from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class ChatPage {
 
   messageForm: FormGroup;
+  messages: String[] = [];
 
   constructor(public navCtrl: NavController, public webSocketService: WebSocketService, public formBuilder: FormBuilder) {
     this.messageForm = formBuilder.group({
@@ -17,7 +18,10 @@ export class ChatPage {
     });
 
     this.webSocketService.receiveMessage().subscribe(
-      (message => console.log(message))
+      (messages => {
+        console.log(messages);
+        this.messages.push(messages.item.message);
+      })
       );
 
   }

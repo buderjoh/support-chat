@@ -12,23 +12,24 @@ export class WebSocketService {
   private socket = null;
 
   constructor() {
+    this.socket = io('http://localhost:8080');
   }
 
 
   public login(person: any) {
     console.log(person.value);
-    this.socket = io('http://localhost:8080');
     this.socket.emit('login', person.value);
   }
 
   public sendMessage(message: String) {
-    this.socket = io('http://localhost:8080');
     this.socket.emit('sendMessage', message);
   }
 
   public receiveMessage(): Observable<any> {
-    this.socket = io('http://localhost:8080');
-    return Observable.of(this.socket.on('pushMessage'));
+    return Observable.create((observer: any) => {
+      this.socket.on("pushMessage", (message: any) => observer.next({ action: "receiveMessage", item: message }) );
+      return () => this.socket.close();
+    });
   }
 
 

@@ -1,10 +1,10 @@
 <ion-content padding>
 
-    <span>
-
-{{}}
-
-    </span>
+  <ion-list>
+    <ion-item *ngFor="let message of messages">
+      <h2>{{message}}</h2>
+    </ion-item>
+  </ion-list>
 
   <form [formGroup]="messageForm">
   <ion-item>
@@ -12,6 +12,6 @@
   </ion-item>
     </form>
   <div padding>
-    <button ion-button color="primary" block (click)="sendMessage()">Zum Chat</button>
+    <button ion-button color="primary" block (click)="sendMessage()">Send</button>
   </div>
 </ion-content>
