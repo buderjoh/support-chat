@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-import { ChatPage } from '../chat/chat'
-import { WebSocketService } from '../../service/websocket-service'
+import { ChatPage } from '../chat/chat';
+import { UserPoolPage } from '../userpool/userpool';
+import { WebSocketService } from '../../service/websocket-service';
 
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
@@ -22,6 +23,10 @@ export class HomePage {
       email: ['', Validators.required],
       customerId: ['', Validators.required],
     });
+  }
+
+  public test() {
+    this.navCtrl.push(UserPoolPage);
   }
 
  public login() {

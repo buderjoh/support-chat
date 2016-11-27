@@ -17,8 +17,10 @@ export class WebSocketService {
 
 
   public login(person: any) {
+    if (person) {
     console.log(person.value);
     this.socket.emit('login', person.value);
+  }
   }
 
   public sendMessage(message: String) {
@@ -28,6 +30,13 @@ export class WebSocketService {
   public receiveMessage(): Observable<any> {
     return Observable.create((observer: any) => {
       this.socket.on("pushMessage", (message: any) => observer.next({ action: "receiveMessage", item: message }) );
+      return () => this.socket.close();
+    });
+  }
+
+  public receiveCustomers(): Observable<any> {
+    return Observable.create((observer: any) => {
+      this.socket.on("pushCustomers", (customer: any) => observer.next({ action: "receiveCustomers", item: customer }) );
       return () => this.socket.close();
     });
   }
